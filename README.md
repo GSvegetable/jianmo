@@ -1,45 +1,45 @@
-# JIANMO — 3D Character & Creature Gallery
+# JIANMO — Character Model Viewer
 
-[![Version](https://img.shields.io/badge/version-0.5.2-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
+[![Version](https://img.shields.io/badge/version-0.6.1-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
 
 **Online preview:** https://gsvegetable.github.io/jianmo/
 
-A premium, interactive 3D gallery for characters, animals, and original-creature art. The current collection begins with chibi-inspired prototypes of the four members of Kessoku Band from *Bocchi the Rock!*.
+A minimal real-time viewer for four standalone character models.
 
 ## Release
 
-- **Current version:** `0.5.2`
-- **Release stage:** Early prototype
-- **Current collection:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
-- **Rendering:** Three.js + React Three Fiber
-- **Experience modes:** Automatic exhibition and free exploration
+- **Current version:** `0.6.1`
+- **Release stage:** GLB asset pipeline refactor
+- **Characters:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
+- **Rendering:** Three.js + React Three Fiber + GLB/glTF
+- **Controls:** Four character selectors; orbit and zoom in the viewport
 
-Version numbers follow Semantic Versioning where practical:
-- **PATCH** (`0.5.2`): fixes and small refinements
-- **MINOR** (`0.5.2`): backward-compatible features and meaningful content additions
-- **MAJOR** (`1.0.0`): major milestone or breaking architectural changes
+## Version 0.6.1 — GLB-first viewer refactor
 
-Update the version in both this README and `package.json` whenever a release-worthy project update is made.
+- Removed the procedural character-building system. Character bodies are no longer assembled from spheres, cones, tubes, and rounded boxes.
+- Reduced the public preview to one 3D viewport and four character-switch buttons.
+- Added a standalone GLB loading path with automatic model centering and scale normalization.
+- Removed gallery navigation, categories, character descriptions, exhibition/exploration modes, settings, and decorative interface panels.
+- Defined stable asset paths for the four standalone models under `public/models/characters/`.
 
-## Version 0.5.2 — JSX syntax correction
+## Model asset status
 
-- Added fine raised hair-strand lines to break up smooth hair caps and improve close-range silhouette.
-- Refined eyebrow curves and subtle facial linework for clearer expressions.
-- Added jacket seam accents, skirt pleat lines, and instrument straps.
-- Updated character descriptions and archive status to identify sculpt pass 03.
+The viewer architecture is now ready for complete GLB assets, but the four final character meshes have **not** been created or imported yet. The current preview therefore shows an unobtrusive asset-in-production state rather than disguising the old procedural models as finished work.
 
-## Current features
+The intended production workflow is:
+1. Create each character as a complete, independently authored 3D mesh in Blender or another professional DCC tool.
+2. Refine silhouette, facial forms, hair volumes, clothing construction, hands, accessories, and instruments as real mesh work.
+3. Create clean topology, UVs, PBR materials, and a consistent neutral pose.
+4. Export optimized GLB files into `public/models/characters/`.
+5. Set each character's `modelUrl` in `src/data/catalog.js` to its corresponding asset path.
 
-- Four selectable character records with individual details and color identities
-- Iterative procedural chibi sculpt studies with layered hair locks and strand accents, facial construction, costume seam details, instrument straps, and character-specific instruments (guitar, bass, or drum kit)
-- Exhibition mode with slow automatic presentation
-- Exploration mode with orbit, zoom, and pan controls
-- Studio environment lighting, contact shadows, and viewport framing
-- Catalog-driven GLB/glTF model registration
-- Responsive desktop, tablet, and mobile layout
-- GitHub Pages deployment on updates to `main`
+Expected asset paths:
+- `/models/characters/hitori-gotoh.glb`
+- `/models/characters/nijika-ijichi.glb`
+- `/models/characters/ryo-yamada.glb`
+- `/models/characters/ikuyo-kita.glb`
 
-> **Model status:** The four characters are currently procedural geometry prototypes, not final production-grade sculpts. The models are still stylized procedural meshes rather than final production-grade sculpts; facial likeness, fully sculpted hair volumes, hand posing, instrument accuracy, material polish, and animation remain in progress. Replace or augment them with optimized, properly licensed GLB assets as the collection matures.
+**Important:** This connected workspace currently does not expose a 3D mesh-generation capability. No generated mesh has been fabricated or represented as a finished model. The final character assets must be authored or generated through an available 3D production tool and then imported.
 
 ## Run locally
 
@@ -48,33 +48,15 @@ npm install
 npm run dev
 ```
 
-Create a production build and preview it locally:
-
 ```bash
 npm run build
 npm run preview
 ```
 
-## Add or replace a model
-
-1. Export the model from Blender as optimized GLB/glTF.
-2. Place it under `public/models/`.
-3. Set `modelUrl` in `src/data/catalog.js`, for example `/models/characters/hitori-gotoh.glb`.
-4. Add animation names and character metadata to the catalog entry.
-
-## Quality guidelines
-
-- Prefer GLB with embedded PBR textures.
-- Keep animation clips named clearly (Idle, Walk, Turn, etc.).
-- Use 2K textures as a practical starting point; reserve 4K for close-up hero assets.
-- Keep a high-quality source file separately; provide optimized web exports.
-- Include a neutral/rest pose and consistent scale/origin.
-- Use original or properly licensed model, texture, and reference assets.
-
 ## Deployment
 
-Every push to `main` triggers the GitHub Actions workflow in `.github/workflows/deploy.yml`. The workflow uses GitHub Actions as its publishing source and deploys the generated `dist/` artifact to:
+Every push to `main` triggers GitHub Actions and deploys the production build to:
 
 https://gsvegetable.github.io/jianmo/
 
-If Pages has not yet been enabled for this repository, the first deployment may still require **Settings → Pages → Build and deployment → Source → GitHub Actions**.
+Update the version in both this README and `package.json` on every project update.
