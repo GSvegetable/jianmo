@@ -91,3 +91,32 @@ button { font: inherit; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
 
+
+.model-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  color: rgba(238, 234, 226, .72);
+  font-size: 14px;
+  line-height: 1.7;
+  pointer-events: none;
+}
+
+.model-status.error strong {
+  color: #eeeae2;
+  font-size: 16px;
+}
+
+.model-status code {
+  padding: 1px 6px;
+  border: 1px solid rgba(236, 231, 219, .16);
+  border-radius: 3px;
+  background: rgba(236, 231, 219, .06);
+  font-size: 12.5px;
+}

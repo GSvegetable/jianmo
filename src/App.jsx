@@ -9,7 +9,7 @@ export default function App() {
   return (
     <main className="viewer">
       <section className="viewport" aria-label={`${active.name} 3D 模型`}>
-        <Scene key={active.id} modelUrl={active.modelUrl} />
+        <Scene key={active.id} vrmUrl={active.vrmUrl} glbUrl={active.glbUrl} name={active.name} />
       </section>
       <nav className="character-switcher" aria-label="切换角色">
         {catalog.map((item, index) => (
