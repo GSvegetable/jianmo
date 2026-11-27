@@ -1,0 +1,29 @@
+{
+  "generator": "jianmo procedural chibi pipeline",
+  "method": "signed distance field + smooth booleans + surface nets",
+  "characters": [
+    {
+      "id": "hitori",
+      "name": "后藤一里",
+      "file": "hitori-gotoh.glb",
+      "bytes": 9952908,
+      "triangles": 352872,
+      "vertices": 178185,
+      "materials": 22,
+      "bounds": {
+        "min": [
+          -0.3605,
+          -0.0018,
+          -0.3183
+        ],
+        "max": [
+          0.3605,
+          1.8588,
+          0.2868
+        ]
+      },
+      "height": 1.8606,
+      "seconds": 55.6
+    }
+  ]
+}

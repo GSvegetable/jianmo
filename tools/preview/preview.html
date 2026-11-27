@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>JIANMO preview</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #111210; overflow: hidden; }
+      canvas { display: block; }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/node_modules/three/build/three.module.js",
+          "three/addons/": "/node_modules/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+      const params = new URLSearchParams(location.search);
+      const model = params.get('model') || 'hitori-gotoh.glb';
+      const size = Number(params.get('size') || 1000);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setPixelRatio(2);
+      renderer.setSize(size, size);
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 0.92;
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('#111210');
+
+      // offline studio lighting -- no CDN round trip
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+
+      const key = new THREE.DirectionalLight(0xffffff, 1.5);
+      key.position.set(4, 7, 5);
+      scene.add(key);
+      const fill = new THREE.DirectionalLight(0xd6d9e8, 0.75);
+      fill.position.set(-4, 2, -3);
+      scene.add(fill);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.30));
+
+      const loader = new GLTFLoader();
+      let holder = null;
+
+      loader.load('/public/models/characters/' + model, (gltf) => {
+        const root = gltf.scene;
+        const box = new THREE.Box3().setFromObject(root);
+        const boxSize = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        root.position.sub(center);
+        holder = new THREE.Group();
+        holder.add(root);
+        const longest = Math.max(boxSize.x, boxSize.y, boxSize.z) || 1;
+        holder.scale.setScalar(3.2 / longest);
+        scene.add(holder);
+        window.modelReady = true;
+        window.render();
+      }, undefined, (err) => {
+        window.modelError = String(err);
+        console.error(err);
+      });
+
+      window.render = () => renderer.render(scene, camera);
+
+      window.setView = (azDeg, elDeg, dist, targetY) => {
+        const az = (azDeg * Math.PI) / 180;
+        const el = (elDeg * Math.PI) / 180;
+        const ty = targetY || 0;
+        camera.position.set(
+          Math.sin(az) * Math.cos(el) * dist,
+          Math.sin(el) * dist + ty,
+          Math.cos(az) * Math.cos(el) * dist,
+        );
+        camera.lookAt(0, ty, 0);
+        renderer.render(scene, camera);
+      };
+
+      window.setView(0, 8, 5.2, 0);
+    </script>
+  </body>
+</html>
