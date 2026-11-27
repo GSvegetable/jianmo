@@ -1,6 +1,6 @@
 import { Component, Suspense, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows, Environment, OrbitControls, useGLTF } from '@react-three/drei';
+import { ContactShadows, Environment, Html, OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 class ModelErrorBoundary extends Component {
@@ -21,12 +21,9 @@ class ModelErrorBoundary extends Component {
 
 function ModelStatus() {
   return (
-    <group>
-      <mesh position={[0, 0, 0]}>
-        <sphereGeometry args={[0.002, 8, 8]} />
-        <meshBasicMaterial transparent opacity={0} />
-      </mesh>
-    </group>
+    <Html center>
+      <div className="asset-state">MODEL FILE COULD NOT BE LOADED</div>
+    </Html>
   );
 }
 
