@@ -31,8 +31,8 @@ function TubeLimb({ start, end, radius, color }) {
 }
 function Eye({ x, z, iris, style }) {
   return <group position={[x,1.55,z]}>
-    <Orb position={[0,0,0]} scale={[.105,style==="ryo"?.115:style==="kita"?.17:.15,.045]} color="#fffaf2" roughness=.32}/>
-    <Orb position={[0,-.005,.035]} scale={[.066,style==="ryo"?.082:style==="kita"?.12:.108,.026]} color={iris} roughness=.28}/>
+    <Orb position={[0,0,0]} scale={[.105,style==="ryo" ? 0.115 : style==="kita" ? 0.17 : 0.15,.045]} color="#fffaf2" roughness=.32}/>
+    <Orb position={[0,-.005,.035]} scale={[.066,style==="ryo" ? 0.082 : style==="kita" ? 0.12 : 0.108,.026]} color={iris} roughness=.28}/>
     <Orb position={[0,-.005,.057]} scale={[.031,.073,.014]} color="#25232a" roughness=.2}/>
     <Orb position={[-.018,.045,.07]} scale={[.022,.027,.012]} color="#fff" roughness=.15}/>
     <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness=.15}/>
