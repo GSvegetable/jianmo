@@ -1,6 +1,6 @@
 # JIANMO — 3D Character & Creature Gallery
 
-[![Version](https://img.shields.io/badge/version-0.5.1-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
+[![Version](https://img.shields.io/badge/version-0.5.2-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
 
 **Online preview:** https://gsvegetable.github.io/jianmo/
 
@@ -8,20 +8,20 @@ A premium, interactive 3D gallery for characters, animals, and original-creature
 
 ## Release
 
-- **Current version:** `0.5.1`
+- **Current version:** `0.5.2`
 - **Release stage:** Early prototype
 - **Current collection:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
 - **Rendering:** Three.js + React Three Fiber
 - **Experience modes:** Automatic exhibition and free exploration
 
 Version numbers follow Semantic Versioning where practical:
-- **PATCH** (`0.5.1`): fixes and small refinements
-- **MINOR** (`0.5.1`): backward-compatible features and meaningful content additions
+- **PATCH** (`0.5.2`): fixes and small refinements
+- **MINOR** (`0.5.2`): backward-compatible features and meaningful content additions
 - **MAJOR** (`1.0.0`): major milestone or breaking architectural changes
 
 Update the version in both this README and `package.json` whenever a release-worthy project update is made.
 
-## Version 0.5.1 — Production build repair
+## Version 0.5.2 — JSX syntax correction
 
 - Added fine raised hair-strand lines to break up smooth hair caps and improve close-range silhouette.
 - Refined eyebrow curves and subtle facial linework for clearer expressions.
