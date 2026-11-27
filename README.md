@@ -1,6 +1,6 @@
 # JIANMO — 3D Character & Creature Gallery
 
-[![Version](https://img.shields.io/badge/version-0.4.0-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
+[![Version](https://img.shields.io/badge/version-0.4.1-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
 
 **Online preview:** https://gsvegetable.github.io/jianmo/
 
@@ -8,7 +8,7 @@ A premium, interactive 3D gallery for characters, animals, and original-creature
 
 ## Release
 
-- **Current version:** `0.4.0`
+- **Current version:** `0.4.1`
 - **Release stage:** Early prototype
 - **Current collection:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
 - **Rendering:** Three.js + React Three Fiber
@@ -21,12 +21,12 @@ Version numbers follow Semantic Versioning where practical:
 
 Update the version in both this README and `package.json` whenever a release-worthy project update is made.
 
-## Version 0.4.0 — character sculpt study pass 02
+## Version 0.4.1 — GitHub Pages deployment repair
 
-- Added pointed, layered fringe locks and more dimensional side-hair silhouettes.
-- Individualized eye proportions and added subtle face, ear, brow, and mouth details.
-- Added jacket lapels, small fasteners, hand/finger accents, and shoe detailing.
-- Clarified in the interface that these remain iterative sculpt studies, not finished collectible-grade models.
+- Removed the npm cache step that required a lockfile which this repository does not contain.
+- Added a deploy-output check and `.nojekyll` marker before uploading the Pages artifact.
+- Kept the Vite project base at `/jianmo/` for correct project-site asset paths.
+- Configured the workflow to publish on every push to `main` and via manual dispatch.
 
 ## Current features
 
@@ -73,8 +73,8 @@ npm run preview
 
 ## Deployment
 
-Every push to `main` triggers the GitHub Actions workflow in `.github/workflows/deploy.yml`. Once the repository's Pages source is configured to **GitHub Actions**, the production build is published automatically to:
+Every push to `main` triggers the GitHub Actions workflow in `.github/workflows/deploy.yml`. The workflow uses GitHub Actions as its publishing source and deploys the generated `dist/` artifact to:
 
 https://gsvegetable.github.io/jianmo/
 
-The first Pages deployment may require enabling **Settings → Pages → Build and deployment → Source → GitHub Actions** in the repository settings.
+If Pages has not yet been enabled for this repository, the first deployment may still require **Settings → Pages → Build and deployment → Source → GitHub Actions**.
