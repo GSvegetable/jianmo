@@ -1,6 +1,6 @@
 import { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Capsule, ContactShadows, Environment, Float, OrbitControls, RoundedBox, useGLTF } from '@react-three/drei';
+import { ContactShadows, Environment, Float, OrbitControls, RoundedBox, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 const palette = {
@@ -183,7 +183,7 @@ function Stage({ mode, modelUrl, characterId }) {
   </>;
 }
 export default function Scene({ mode, modelUrl, characterId }) {
-  return <Canvas shadows dpr={[1,1.7]} camera={{position=[0,.55,5.4],fov:38,near:.1,far:50}} gl={{antialias:true,alpha:false,powerPreference:'high-performance'}}>
+  return <Canvas shadows dpr={[1,1.7]} camera={{position:[0,.55,5.4],fov:38,near:.1,far:50}} gl={{antialias:true,alpha:false,powerPreference:'high-performance'}}>
     <Stage mode={mode} modelUrl={modelUrl} characterId={characterId}/>
   </Canvas>;
 }
