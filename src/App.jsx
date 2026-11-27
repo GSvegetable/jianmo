@@ -1,78 +1,49 @@
-import { useState } from 'react';
 import Scene from './components/Scene.jsx';
-import { catalog, charms } from './data/catalog.js';
+import { catalog } from './data/catalog.js';
 
-const TABS = [
-  { id: 'character', label: '角色', items: catalog },
-  { id: 'charm', label: '挂件', items: charms },
-];
+// The current production pass is intentionally limited to one hero asset.
+// The other legacy meshes remain in the repository for comparison, but are
+// not presented as finished work.
+const hero = catalog.find((item) => item.id === 'kita') ?? catalog[0];
 
 export default function App() {
-  const [tab, setTab] = useState('character');
-  const [activeId, setActiveId] = useState(catalog[0].id);
-  const current = TABS.find((item) => item.id === tab) ?? TABS[0];
-  const active = current.items.find((item) => item.id === activeId) ?? current.items[0];
-
-  function switchTab(nextId) {
-    const next = TABS.find((item) => item.id === nextId) ?? TABS[0];
-    setTab(next.id);
-    setActiveId(next.items[0].id);
-  }
-
   return (
-    <main className="viewer">
+    <main className="viewer viewer--hero">
       <header className="viewer-header">
         <a className="brand" href="./" aria-label="JIANMO 首页">
           <span className="brand-mark">J.</span>
           <span className="brand-copy">
             <strong>JIANMO</strong>
-            <small>CHARACTER OBJECTS · 3D COLLECTION</small>
+            <small>CHARACTER SCULPT STUDY</small>
           </span>
         </a>
-        <div className="tab-switcher" role="tablist" aria-label="作品类别">
-          {TABS.map((item) => (
-            <button key={item.id} type="button" role="tab"
-              aria-selected={tab === item.id}
-              className={tab === item.id ? 'tab-button active' : 'tab-button'}
-              onClick={() => switchTab(item.id)}>
-              {item.label}
-              <span className="tab-count">{String(item.items.length).padStart(2, '0')}</span>
-            </button>
-          ))}
-        </div>
-        <div className="header-note"><span className="status-dot" />INTERACTIVE 3D</div>
+        <div className="header-note"><span className="status-dot" />HERO ASSET · 01</div>
       </header>
 
-      <section className="viewport" aria-label={`${active.name} 3D 模型`}>
+      <section className="viewport" aria-label={`${hero.name} 3D 模型`}>
         <div className="viewport-caption">
-          <span className="eyebrow">{current.id === 'charm' ? 'OBJECT STUDY' : 'CHARACTER STUDY'}</span>
-          <h1>{active.name}</h1>
-          <p>DRAG TO ROTATE <i /> SCROLL TO ZOOM</p>
+          <span className="eyebrow">CHARACTER / 001</span>
+          <h1>{hero.name}</h1>
+          <p>FULL TURNAROUND <i /> DRAG TO ROTATE <i /> SCROLL TO ZOOM</p>
         </div>
-        <Scene key={`${current.id}-${active.id}`} kind={current.id}
-          vrmUrl={active.vrmUrl} glbUrl={active.glbUrl} name={active.name} />
+        <Scene
+          key={hero.id}
+          kind="character"
+          vrmUrl={hero.vrmUrl}
+          glbUrl={hero.glbUrl}
+          name={hero.name}
+        />
         <div className="viewport-index" aria-hidden="true">
-          <span>J / 01</span><span>360° VIEW</span>
+          <span>JIANMO / HERO STUDY</span>
+          <span>360° VIEW</span>
         </div>
       </section>
 
-      <nav className="character-switcher" aria-label="切换作品">
-        <div className="switcher-label">
-          <span>COLLECTION</span>
-          <span>{String(current.items.length).padStart(2, '0')} OBJECTS</span>
-        </div>
-        <div className="switcher-items">
-          {current.items.map((item, index) => (
-            <button key={item.id} type="button"
-              className={active.id === item.id ? 'character-button active' : 'character-button'}
-              aria-pressed={active.id === item.id} onClick={() => setActiveId(item.id)}>
-              <span className="button-index">0{index + 1}</span>
-              <span>{item.name}</span>
-              <span className="button-arrow" aria-hidden="true">↗</span>
-            </button>
-          ))}
-        </div>
-      </nav>
+      <footer className="hero-footer">
+        <span>IKUYO KITA</span>
+        <span>ONE CHARACTER. BUILT PROPERLY.</span>
+        <span>GLB / VRM READY</span>
+      </footer>
     </main>
   );
 }
