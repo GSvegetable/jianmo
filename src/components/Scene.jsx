@@ -29,10 +29,10 @@ function TubeLimb({ start, end, radius, color }) {
     <capsuleGeometry args={[radius,Math.max(.01,direction.length()-radius*2),6,12]}/>{mat(color)}
   </mesh>;
 }
-function Eye({ x, z, iris }) {
+function Eye({ x, z, iris, style }) {
   return <group position={[x,1.55,z]}>
-    <Orb position={[0,0,0]} scale={[.105,.15,.045]} color="#fffaf2" roughness=.32}/>
-    <Orb position={[0,-.005,.035]} scale={[.066,.108,.026]} color={iris} roughness=.28}/>
+    <Orb position={[0,0,0]} scale={[.105,style==="ryo"?.115:style==="kita"?.17:.15,.045]} color="#fffaf2" roughness=.32}/>
+    <Orb position={[0,-.005,.035]} scale={[.066,style==="ryo"?.082:style==="kita"?.12:.108,.026]} color={iris} roughness=.28}/>
     <Orb position={[0,-.005,.057]} scale={[.031,.073,.014]} color="#25232a" roughness=.2}/>
     <Orb position={[-.018,.045,.07]} scale={[.022,.027,.012]} color="#fff" roughness=.15}/>
     <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness=.15}/>
@@ -78,6 +78,8 @@ function Hair({ id, c }) {
       <Orb position={[0,2.27,-.1]} scale={[.15,.25,.17]} color={c.hairShade}/>
     </>}
     {id==='nijika' && <>
+      <HairLock start={[.72,1.75,-.24]} end={[1.18,.7,-.4]} width={.24} color={c.hair}/>
+      <HairLock start={[.82,1.55,-.34]} end={[1.28,.92,-.42]} width={.16} color={c.hairShade}/>
       <Orb position={[.76,1.72,-.28]} scale={[.31,.25,.3]} color={c.hairShade}/>
       <Orb position={[.98,1.38,-.27]} scale={[.2,.5,.2]} color={c.hair}/>
       <Orb position={[1.08,1.02,-.25]} scale={[.15,.34,.16]} color={c.hair}/>
@@ -87,11 +89,15 @@ function Hair({ id, c }) {
       <Orb position={[.12,2.34,.15]} scale={[.12,.1,.1]} color={c.hairClip}/>
     </>}
     {id==='bocchi' && <>
+      <HairLock start={[-.76,1.22,-.02]} end={[-.92,.12,.1]} width={.13} color={c.hairShade}/>
+      <HairLock start={[.76,1.22,-.02]} end={[.91,.12,.1]} width={.13} color={c.hairShade}/>
       <Orb position={[-.79,1.95,.12]} scale={[.13,.13,.12]} color={c.hairClip}/>
       <Orb position={[-.67,1.83,.18]} scale={[.1,.11,.1]} color={c.hairClip}/>
       <Orb position={[.76,1.95,.08]} scale={[.12,.12,.12]} color={c.hairClip}/>
     </>}
     {id==='kita' && <>
+      <HairLock start={[-.72,1.25,-.03]} end={[-.82,.16,-.02]} width={.15} color={c.hair}/>
+      <HairLock start={[.72,1.25,-.03]} end={[.84,.16,-.02]} width={.15} color={c.hairShade}/>
       <Orb position={[.75,1.96,.12]} scale={[.13,.13,.12]} color={c.hairClip}/>
       <Orb position={[.85,1.85,.1]} scale={[.1,.11,.1]} color={c.hairClip}/>
     </>}
@@ -102,7 +108,7 @@ function Face({ c, id }) {
     <Orb position={[0,1.48,.18]} scale={[.76,.72,.65]} color={c.skin}/>
     <Orb position={[-.48,1.22,.72]} scale={[.14,.06,.025]} color="#f2a6a0"/>
     <Orb position={[.48,1.22,.72]} scale={[.14,.06,.025]} color="#f2a6a0"/>
-    <Eye x={-.29} z={.77} iris={c.eyes}/><Eye x={.29} z={.77} iris={c.eyes}/>
+    <Eye x={-.29} z={.77} iris={c.eyes} style={id}/><Eye x={.29} z={.77} iris={c.eyes} style={id}/>
     <Orb position={[0,1.22,.83]} scale={[.045,.025,.02]} color="#a96862"/>
     <Orb position={[0,1.12,.81]} scale={[.085,.025,.018]} color={id==='ryo'?'#9c6866':'#c77978'}/>
     {id==='bocchi' && <Orb position={[0,1.095,.825]} scale={[.045,.018,.012]} color="#8f5962"/>}
