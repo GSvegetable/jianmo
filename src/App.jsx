@@ -10,6 +10,7 @@ export default function App() {
     <main className="viewer">
       <section className="viewport" aria-label={`${active.name} 3D 模型`}>
         <Scene key={active.id} modelUrl={active.modelUrl} />
+        {!active.modelUrl && <div className="asset-state">3D MODEL IN PRODUCTION</div>}
       </section>
       <nav className="character-switcher" aria-label="切换角色">
         {catalog.map((item, index) => (
