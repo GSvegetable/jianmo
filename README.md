@@ -16,12 +16,19 @@ A premium, interactive 3D gallery for characters, animals, and original-creature
 
 Version numbers follow Semantic Versioning where practical:
 - **PATCH** (`0.4.1`): fixes and small refinements
-- **MINOR** (`0.4.0`): backward-compatible features and meaningful content additions
+- **MINOR** (`0.5.0`): backward-compatible features and meaningful content additions
 - **MAJOR** (`1.0.0`): major milestone or breaking architectural changes
 
 Update the version in both this README and `package.json` whenever a release-worthy project update is made.
 
-## Version 0.4.0 — character modeling pass 01\n\n- Rebuilt the four character silhouettes and face details.\n- Added character-specific hair accessories and outfit color blocking.\n- Added a dedicated drum kit for Nijika and a longer-neck bass for Ryo; Bocchi and Kita retain individual guitar variants.\n- Kept the models procedural so they remain lightweight and editable in the browser.\n\n## Current features
+## Version 0.4.0 — character sculpt study pass 02
+
+- Added pointed, layered fringe locks and more dimensional side-hair silhouettes.
+- Individualized eye proportions and added subtle face, ear, brow, and mouth details.
+- Added jacket lapels, small fasteners, hand/finger accents, and shoe detailing.
+- Clarified in the interface that these remain iterative sculpt studies, not finished collectible-grade models.
+
+## Current features
 
 - Four selectable character records with individual details and color identities
 - Iterative procedural chibi sculpt studies with layered hair locks, facial construction, costume accents, and character-specific instruments (guitar, bass, or drum kit)
