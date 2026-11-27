@@ -31,11 +31,11 @@ function TubeLimb({ start, end, radius, color }) {
 }
 function Eye({ x, z, iris, style }) {
   return <group position={[x,1.55,z]}>
-    <Orb position={[0,0,0]} scale={[.105,style==="ryo" ? 0.115 : style==="kita" ? 0.17 : 0.15,.045]} color="#fffaf2" roughness={.32}}/>
-    <Orb position={[0,-.005,.035]} scale={[.066,style==="ryo" ? 0.082 : style==="kita" ? 0.12 : 0.108,.026]} color={iris} roughness={.28}}/>
-    <Orb position={[0,-.005,.057]} scale={[.031,.073,.014]} color="#25232a" roughness={.2}}/>
-    <Orb position={[-.018,.045,.07]} scale={[.022,.027,.012]} color="#fff" roughness={.15}}/>
-    <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness={.15}}/>
+    <Orb position={[0,0,0]} scale={[.105,style==="ryo" ? 0.115 : style==="kita" ? 0.17 : 0.15,.045]} color="#fffaf2" roughness={.32}/>
+    <Orb position={[0,-.005,.035]} scale={[.066,style==="ryo" ? 0.082 : style==="kita" ? 0.12 : 0.108,.026]} color={iris} roughness={.28}/>
+    <Orb position={[0,-.005,.057]} scale={[.031,.073,.014]} color="#25232a" roughness={.2}/>
+    <Orb position={[-.018,.045,.07]} scale={[.022,.027,.012]} color="#fff" roughness={.15}/>
+    <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness={.15}/>
   </group>;
 }
 function HairLock({ start, end, width, color }) {
@@ -140,8 +140,8 @@ function Guitar({ color, bass=false, position=[.45,.03,.64], rotation=[0,0,-.34]
   return <group position={position} rotation={rotation}>
     {/* sculpted double-cut body */}
     <Orb position={[-.05,.02,0]} scale={[.29,.39,.105]} color={color} roughness={.34}/>
-    <Orb position={[-.2,.12,.008]} scale={[.17,.2,.108]} color={color} roughness={.34}}/>
-    <Orb position={[.11,.12,.008]} scale={[.17,.2,.108]} color={color} roughness={.34}}/>
+    <Orb position={[-.2,.12,.008]} scale={[.17,.2,.108]} color={color} roughness={.34}/>
+    <Orb position={[.11,.12,.008]} scale={[.17,.2,.108]} color={color} roughness={.34}/>
     <SoftBox position={[-.04,.37,.02]} size={[.095,neckLength,.075]} color="#75543e" radius={.025}/>
     <SoftBox position={[-.04,.37,.064]} size={[.072,neckLength-.06,.012]} color="#2d2b2a" radius={.012}/>
     <SoftBox position={[-.04,.37+neckLength/2,.02]} size={[.19,.17,.08]} color="#d8d2c3" radius={.035}/>
@@ -149,7 +149,7 @@ function Guitar({ color, bass=false, position=[.45,.03,.64], rotation=[0,0,-.34]
     <Orb position={[-.05,.07,.12]} scale={[.11,.1,.018]} color="#24272a" roughness={.35}/>
     {Array.from({length:bass?4:6},(_,i)=><mesh key={i} position={[-.11+i*(.12/(bass?3:5)),.38,.09]}><boxGeometry args={[.006,neckLength+.28,.006]}/>{mat('#e8e1d2',.3,.65)}</mesh>)}
     {Array.from({length:7},(_,i)=><SoftBox key={i} position={[-.04,.02+i*.115,.073]} size={[.09,.012,.012]} color="#b6aa93" radius={.003}/>)}
-    {Array.from({length:bass?4:3},(_,i)=><Orb key={i} position={[-.16+i*.11,-.08,.12]} scale={[.018,.025,.014]} color="#c9c5b9" roughness={.25}}/>)}
+    {Array.from({length:bass?4:3},(_,i)=><Orb key={i} position={[-.16+i*.11,-.08,.12]} scale={[.018,.025,.014]} color="#c9c5b9" roughness={.25}/>)}
     <SoftBox position={[-.04,.37+neckLength/2,.065]} size={[.2,.045,.025]} color="#c8c2b5" radius={.01}/>
     {[-1,1].map((side)=><group key={side}>{[0,1,2].map(i=><Orb key={i} position={[-.04+side*(.13),.37+neckLength/2-.05+i*.07,.015]} scale={[.055,.025,.025]} color="#bcb8ae" roughness={.3}/>)}</group>)}
   </group>;
