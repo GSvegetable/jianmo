@@ -1,6 +1,6 @@
 # JIANMO — 3D Character & Creature Gallery
 
-[![Version](https://img.shields.io/badge/version-0.4.1-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
+[![Version](https://img.shields.io/badge/version-0.5.0-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
 
 **Online preview:** https://gsvegetable.github.io/jianmo/
 
@@ -8,30 +8,30 @@ A premium, interactive 3D gallery for characters, animals, and original-creature
 
 ## Release
 
-- **Current version:** `0.4.1`
+- **Current version:** `0.5.0`
 - **Release stage:** Early prototype
 - **Current collection:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
 - **Rendering:** Three.js + React Three Fiber
 - **Experience modes:** Automatic exhibition and free exploration
 
 Version numbers follow Semantic Versioning where practical:
-- **PATCH** (`0.4.1`): fixes and small refinements
+- **PATCH** (`0.5.0`): fixes and small refinements
 - **MINOR** (`0.5.0`): backward-compatible features and meaningful content additions
 - **MAJOR** (`1.0.0`): major milestone or breaking architectural changes
 
 Update the version in both this README and `package.json` whenever a release-worthy project update is made.
 
-## Version 0.4.1 — GitHub Pages deployment repair
+## Version 0.5.0 — Character sculpt study pass 03
 
-- Removed the npm cache step that required a lockfile which this repository does not contain.
-- Added a deploy-output check and `.nojekyll` marker before uploading the Pages artifact.
-- Kept the Vite project base at `/jianmo/` for correct project-site asset paths.
-- Configured the workflow to publish on every push to `main` and via manual dispatch.
+- Added fine raised hair-strand lines to break up smooth hair caps and improve close-range silhouette.
+- Refined eyebrow curves and subtle facial linework for clearer expressions.
+- Added jacket seam accents, skirt pleat lines, and instrument straps.
+- Updated character descriptions and archive status to identify sculpt pass 03.
 
 ## Current features
 
 - Four selectable character records with individual details and color identities
-- Iterative procedural chibi sculpt studies with layered hair locks, facial construction, costume accents, and character-specific instruments (guitar, bass, or drum kit)
+- Iterative procedural chibi sculpt studies with layered hair locks and strand accents, facial construction, costume seam details, instrument straps, and character-specific instruments (guitar, bass, or drum kit)
 - Exhibition mode with slow automatic presentation
 - Exploration mode with orbit, zoom, and pan controls
 - Studio environment lighting, contact shadows, and viewport framing
@@ -39,7 +39,7 @@ Update the version in both this README and `package.json` whenever a release-wor
 - Responsive desktop, tablet, and mobile layout
 - GitHub Pages deployment on updates to `main`
 
-> **Model status:** The four characters are currently procedural geometry prototypes, not final production-grade sculpts. The models are still stylized procedural meshes rather than final production-grade sculpts; facial likeness, fine costume construction, hand posing, instrument accuracy, and animation remain in progress. Replace or augment them with optimized, properly licensed GLB assets as the collection matures.
+> **Model status:** The four characters are currently procedural geometry prototypes, not final production-grade sculpts. The models are still stylized procedural meshes rather than final production-grade sculpts; facial likeness, fully sculpted hair volumes, hand posing, instrument accuracy, material polish, and animation remain in progress. Replace or augment them with optimized, properly licensed GLB assets as the collection matures.
 
 ## Run locally
 
