@@ -19,7 +19,7 @@ export default function App() {
     <section className="workspace">
       <aside className="sidebar"><div className="eyebrow">COLLECTION <span>01—04</span></div><h1>角色图鉴<span className="muted-dot">.</span></h1><p className="sidebar-intro">以数字雕塑的方式，收藏喜爱的角色。</p>
         <div className="category-list">{categories.map((category,index)=><button key={category} className={activeCategory===category?'category active':'category'} onClick={()=>setActiveCategory(category)}><span className="category-index">0{index+1}</span><span>{category}</span><span className="category-count">{categoryCount[category]??0}</span></button>)}</div>
-        <div className="sidebar-bottom"><span className="small-label">ARCHIVE STATUS</span><div className="status-line"><span className="status-dot"/> FOUR CHARACTERS / PROTOTYPE</div><p>Q版角色原型已建立，后续可替换为精细模型。</p></div>
+        <div className="sidebar-bottom"><span className="small-label">ARCHIVE STATUS</span><div className="status-line"><span className="status-dot"/> FOUR CHARACTERS / SCULPT STUDY</div><p>角色仍处于程序化雕塑研究阶段，细节与最终模型持续迭代。</p></div>
       </aside>
       <section className="stage-column">
         <div className="stage-heading"><div><div className="eyebrow">CHARACTER / {String(catalog.findIndex(x=>x.id===specimen.id)+1).padStart(2,'0')} — 04</div><h2>{specimen.name}<span style={{fontSize:'.58em',opacity:.55,marginLeft:10}}>{specimen.alias}</span></h2></div>
@@ -34,7 +34,7 @@ export default function App() {
       </section>
       <aside className="detail-panel"><div className="detail-head"><span className="eyebrow">CHARACTER DETAILS</span><button className="icon-button" onClick={()=>setShowInfo(!showInfo)} aria-label="切换详情"><Info size={16}/></button></div>
         {showInfo&&<><div className="specimen-number">0{catalog.findIndex(x=>x.id===specimen.id)+1}</div><div className="latin-name">{specimen.latinName}</div><h3>{specimen.name}</h3><p className="detail-description">{specimen.description}</p><div className="detail-divider"/><div className="detail-row"><span>所属作品</span><span>孤独摇滚！</span></div><div className="detail-row"><span>角色定位</span><span>{specimen.latinName.split('/').pop()}</span></div><div className="detail-row"><span>模型状态</span><span className="pending">3D 原型</span></div><div className="detail-row"><span>展示模式</span><span>{modeLabel}</span></div></>}
-        <div className="detail-bottom"><div className="detail-tip"><Grid2X2 size={14}/><span>当前为程序化 Q 版原型，后续将继续精修发型、服装、面部与乐器。</span></div><button className="detail-link" onClick={()=>setMode(mode==='exhibition'?'explore':'exhibition')}>切换体验模式 <ArrowDownRight size={15}/></button></div>
+        <div className="detail-bottom"><div className="detail-tip"><Grid2X2 size={14}/><span>当前为第二轮程序化雕塑研究稿，尚未达到最终手办精度。</span></div><button className="detail-link" onClick={()=>setMode(mode==='exhibition'?'explore':'exhibition')}>切换体验模式 <ArrowDownRight size={15}/></button></div>
       </aside>
     </section>
     <footer className="footer"><span>JIANMO © 2026</span><span>BOCCHI THE ROCK! / CHIBI CHARACTER COLLECTION</span><span>BUILT FOR DIGITAL CURIOSITY <ChevronDown size={12}/></span></footer>
