@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Aperture, ArrowDownRight, ChevronDown, CircleHelp, Expand, Focus, Grid2X2, Info, Maximize2, MousePointer2, Rotate3D, Sparkles } from 'lucide-react';
 import Scene from './components/Scene.jsx';
 import { catalog, categories } from './data/catalog.js';
@@ -7,6 +7,11 @@ export default function App() {
   const [mode, setMode] = useState('exhibition');
   const [activeCategory, setActiveCategory] = useState('全部作品');
   const [showInfo, setShowInfo] = useState(true);
+  const stageRef = useRef(null);
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) stageRef.current?.requestFullscreen?.();
+    else document.exitFullscreen?.();
+  };
   const specimen = catalog[0];
   const modeLabel = mode === 'exhibition' ? '艺术展览' : '自由探索';
 
@@ -61,7 +66,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="stage-frame">
+          <div className="stage-frame" ref={stageRef}>
             <div className="stage-grid" />
             <div className="stage-corner corner-tl" /><div className="stage-corner corner-tr" />
             <div className="stage-corner corner-bl" /><div className="stage-corner corner-br" />
@@ -69,7 +74,7 @@ export default function App() {
             <div className="stage-top-meta"><span>3D VIEWPORT</span><span>REALTIME / WEBGL</span></div>
             <div className="stage-bottom-meta"><span>01 — 01</span><span>{mode === 'exhibition' ? 'AUTO PRESENTATION' : 'INTERACTIVE VIEW'}</span></div>
             {!specimen.modelUrl && <div className="placeholder-note"><span className="note-line" /> 3D ENGINE PREVIEW <span className="note-line" /></div>}
-            <button className="expand-button" aria-label="全屏提示" title="全屏功能将在后续完善"><Maximize2 size={15} /></button>
+            <button className="expand-button" onClick={toggleFullscreen} aria-label="切换全屏" title="全屏"><Maximize2 size={15} /></button>
             {mode === 'explore' && <div className="interaction-hint"><MousePointer2 size={13} /> 拖动旋转 · 滚轮缩放</div>}
           </div>
 
