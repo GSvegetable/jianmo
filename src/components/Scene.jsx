@@ -38,12 +38,27 @@ function Eye({ x, z, iris }) {
     <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness=.15}/>
   </group>;
 }
+function HairLock({ start, end, width, color }) {
+  const a = new THREE.Vector3(...start), b = new THREE.Vector3(...end);
+  const direction = new THREE.Vector3().subVectors(b,a);
+  const midpoint = new THREE.Vector3().addVectors(a,b).multiplyScalar(.5);
+  return <mesh position={midpoint.toArray()} quaternion={new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,1,0),direction.clone().normalize())} castShadow receiveShadow>
+    <coneGeometry args={[width,direction.length(),16,2]}/>{mat(color,.48)}
+  </mesh>;
+}
 function Hair({ id, c }) {
   const long = id==='bocchi' || id==='kita';
   const bob = id==='ryo';
   return <group>
     <Orb position={[0,1.78,-.03]} scale={[.88,.87,.76]} color={c.hair}/>
     <Orb position={[0,1.35,-.22]} scale={[.78,.7,.55]} color={c.hairShade}/>
+    {/* pointed fringe locks add a sculpted silhouette */}
+    <HairLock start={[-.58,2.2,.55]} end={[-.39,1.78,.77]} width={.2} color={c.hairShade}/>
+    <HairLock start={[-.28,2.28,.61]} end={[-.12,1.83,.82]} width={.2} color={c.hair}/>
+    <HairLock start={[.08,2.28,.61]} end={[.23,1.82,.82]} width={.19} color={c.hairShade}/>
+    <HairLock start={[.43,2.17,.55]} end={[.48,1.82,.76]} width={.18} color={c.hair}/>
+    <HairLock start={[-.73,1.78,.34]} end={[-.78,1.18,.29]} width={.16} color={c.hairShade}/>
+    <HairLock start={[.72,1.76,.34]} end={[.78,1.16,.29]} width={.16} color={c.hairShade}/>
     {/* distinct fringe silhouette */}
     <Orb position={[-.48,2.02,.34]} scale={[.34,.28,.34]} color={c.hair}/>
     <Orb position={[-.16,2.12,.4]} scale={[.36,.31,.32]} color={c.hair}/>
@@ -82,14 +97,21 @@ function Hair({ id, c }) {
     </>}
   </group>;
 }
-function Face({ c }) {
+function Face({ c, id }) {
   return <group>
     <Orb position={[0,1.48,.18]} scale={[.76,.72,.65]} color={c.skin}/>
     <Orb position={[-.48,1.22,.72]} scale={[.14,.06,.025]} color="#f2a6a0"/>
     <Orb position={[.48,1.22,.72]} scale={[.14,.06,.025]} color="#f2a6a0"/>
     <Eye x={-.29} z={.77} iris={c.eyes}/><Eye x={.29} z={.77} iris={c.eyes}/>
     <Orb position={[0,1.22,.83]} scale={[.045,.025,.02]} color="#a96862"/>
-    <Orb position={[0,1.12,.81]} scale={[.085,.025,.018]} color="#c77978"/>
+    <Orb position={[0,1.12,.81]} scale={[.085,.025,.018]} color={id==='ryo'?'#9c6866':'#c77978'}/>
+    {id==='bocchi' && <Orb position={[0,1.095,.825]} scale={[.045,.018,.012]} color="#8f5962"/>}
+    {id==='nijika' && <Orb position={[0,1.105,.825]} scale={[.095,.022,.014]} color="#c77978"/>}
+    {id==='kita' && <Orb position={[0,1.105,.825]} scale={[.11,.026,.014]} color="#c77978"/>}
+    <Orb position={[-.29,1.72,.78]} scale={[.13,.018,.018]} color={c.hairShade}/>
+    <Orb position={[.29,1.72,.78]} scale={[.13,.018,.018]} color={c.hairShade}/>
+    <Orb position={[-.56,1.47,.65]} scale={[.055,.09,.035]} color={c.skin}/>
+    <Orb position={[.56,1.47,.65]} scale={[.055,.09,.035]} color={c.skin}/>
     <TubeLimb start={[-.42,1.72,.72]} end={[-.18,1.78,.76]} radius=.018 color={c.hairShade}/>
     <TubeLimb start={[.18,1.78,.76]} end={[.42,1.72,.72]} radius=.018 color={c.hairShade}/>
   </group>;
@@ -138,11 +160,15 @@ function Character({ characterId }) {
   return <group ref={root} position={[0,-.48,0]}>
     <Float speed={1.05} rotationIntensity={.025} floatIntensity={.045}>
       <Hair id={id} c={c}/>
-      <Face c={c}/>
+      <Face c={c} id={id}/>
       {/* collar, jacket and torso */}
       <Orb position={[0,.47,-.02]} scale={[.43,.56,.34]} color={c.jacket}/>
       <SoftBox position={[0,.63,.29]} size={[.3,.36,.08]} color={c.shirt} radius=.035/>
       <SoftBox position={[0,.48,.35]} size={[.07,.35,.035]} color={c.tie} radius=.012/>
+      <SoftBox position={[-.16,.63,.35]} size={[.13,.25,.035]} color={c.jacket} radius=.018 rotation={[0,0,-.24]}/>
+      <SoftBox position={[.16,.63,.35]} size={[.13,.25,.035]} color={c.jacket} radius=.018 rotation={[0,0,.24]}/>
+      <Orb position={[0,.54,.39]} scale={[.025,.025,.012]} color="#c7b58f" roughness=.3/>
+      <Orb position={[0,.39,.39]} scale={[.025,.025,.012]} color="#c7b58f" roughness=.3/>
       <Orb position={[-.2,.77,.3]} scale={[.12,.12,.06]} color={c.shirt}/>
       <Orb position={[.2,.77,.3]} scale={[.12,.12,.06]} color={c.shirt}/>
       <Orb position={[0,.03,-.01]} scale={[.48,.2,.34]} color={c.skirt}/>
@@ -152,6 +178,9 @@ function Character({ characterId }) {
       <TubeLimb start={[.35,.68,.02]} end={[.55,.22,.4]} radius=.115 color={c.jacket}/>
       <Orb position={[-.55,.2,.42]} scale={[.12,.11,.1]} color={c.skin}/>
       <Orb position={[.55,.2,.42]} scale={[.12,.11,.1]} color={c.skin}/>
+      {[-1,1].map(side=><group key={side} position={[side*.55,.18,.49]}>
+        {[-1,0,1].map(finger=><HairLock key={finger} start={[finger*.045,0,0]} end={[finger*.052,-.075,.005]} width={.022} color={c.skin}/>)}
+      </group>)}
       {/* legs, socks and shoes */}
       <TubeLimb start={[-.23,-.1,0]} end={[-.25,-.75,.04]} radius=.105 color={c.skin}/>
       <TubeLimb start={[.23,-.1,0]} end={[.25,-.75,.04]} radius=.105 color={c.skin}/>
@@ -159,6 +188,8 @@ function Character({ characterId }) {
       <TubeLimb start={[.25,-.65,.03]} end={[.25,-.88,.03]} radius=.11 color={c.socks}/>
       <Orb position={[-.25,-.93,.13]} scale={[.2,.11,.29]} color={c.shoes}/>
       <Orb position={[.25,-.93,.13]} scale={[.2,.11,.29]} color={c.shoes}/>
+      <SoftBox position={[-.25,-.9,.31]} size={[.19,.035,.025]} color={c.jacket} radius=.012/>
+      <SoftBox position={[.25,-.9,.31]} size={[.19,.035,.025]} color={c.jacket} radius=.012/>
       {isDrummer ? <DrumKit/> : <Guitar color={c.instrument} bass={id==='ryo'} position={id==='ryo'?[.48,.02,.58]:[.47,.02,.6]}/>}
       {id==='bocchi' && <Orb position={[-.67,1.98,.36]} scale={[.08,.08,.025]} color="#78c8ed"/>}
       {id==='kita' && <Orb position={[.76,1.98,.28]} scale={[.07,.07,.025]} color="#fff1d8"/>}
