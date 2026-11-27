@@ -687,12 +687,18 @@ def _axis_angle(axis, angle) -> np.ndarray:
     ], dtype=np.float64)
 
 
-def solidify_patch(grid, thickness, mat=0, name="patch") -> Mesh:
+def solidify_patch(grid, thickness, mat=0, name="patch", wrap_u: bool = False) -> Mesh:
     """Turn an open surface patch into a closed solid with a rim.
 
     ``grid`` is an (nu, nv, 3) array of surface points. The patch is offset
     along its own normals by half the thickness on each side and closed with
     a side wall, producing real cloth-like volume.
+
+    ``wrap_u`` marks a patch whose first and last columns meet in space
+    (a patch that runs all the way around the head).  The rim then has to
+    skip that seam, otherwise a wall is built along a line where the
+    surface already closes on itself -- which shows up as a ridge cutting
+    across the model.
     """
     g = np.asarray(grid, dtype=np.float64)
     nu, nv, _ = g.shape
@@ -720,10 +726,14 @@ def solidify_patch(grid, thickness, mat=0, name="patch") -> Mesh:
         faces.append((off + a, off + d, off + c))
         faces.append((off + a, off + c, off + b))
     # rim walls
-    border = (list(range(nv))
-              + [i * nv + nv - 1 for i in range(1, nu)]
-              + [(nu - 1) * nv + j for j in range(nv - 2, -1, -1)]
-              + [i * nv for i in range(nu - 2, 0, -1)])
+    if wrap_u:
+        border = ([i * nv for i in range(nu)]
+                  + [i * nv + nv - 1 for i in range(nu - 1, -1, -1)])
+    else:
+        border = (list(range(nv))
+                  + [i * nv + nv - 1 for i in range(1, nu)]
+                  + [(nu - 1) * nv + j for j in range(nv - 2, -1, -1)]
+                  + [i * nv for i in range(nu - 2, 0, -1)])
     for k in range(len(border)):
         a = border[k]
         b = border[(k + 1) % len(border)]

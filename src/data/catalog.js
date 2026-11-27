@@ -6,7 +6,12 @@
 // Drop the exported file into public/models/characters/ with the filename
 // below. The viewer loads VRM (MToon toon shading) natively; the procedural
 // GLBs are kept as fallbacks so every character renders until its VRM lands.
+//
+// The charm is the opposite: it is traced out of the official character
+// sheet by the pipeline in tools/charm/, so it is a plain GLB with the
+// drawing printed on both sides.
 const asset = (file) => `${import.meta.env.BASE_URL}models/characters/${file}`;
+const charm = (file) => `${import.meta.env.BASE_URL}models/charms/${file}`;
 
 export const catalog = [
   {
@@ -33,4 +38,8 @@ export const catalog = [
     vrmUrl: asset('ikuyo-kita.vrm'),
     glbUrl: asset('ikuyo-kita.glb'),
   },
+];
+
+export const charms = [
+  { id: 'kita', name: '喜多郁代', glbUrl: charm('ikuyo-kita-charm.glb') },
 ];

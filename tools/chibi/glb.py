@@ -36,6 +36,8 @@ class Material:
     roughness: float = 0.65
     emissive: tuple | None = None
     double_sided: bool = False
+    base_color_texture: int | None = None
+    alpha_mode: str | None = None
     extras: dict = field(default_factory=dict)
 
     def to_gltf(self) -> dict:
@@ -49,6 +51,11 @@ class Material:
         }
         if self.emissive is not None:
             mat["emissiveFactor"] = [float(c) for c in self.emissive]
+        if self.base_color_texture is not None:
+            mat["pbrMetallicRoughness"]["baseColorTexture"] = {
+                "index": int(self.base_color_texture)}
+        if self.alpha_mode:
+            mat["alphaMode"] = self.alpha_mode
         if self.double_sided:
             mat["doubleSided"] = True
         if self.extras:
@@ -108,12 +115,15 @@ def _accessor(view_index: int, component_type: int, count: int, type_name: str,
 
 
 def export_glb(path, parts, materials, name="model", generator=None,
-               scene_extras: dict | None = None) -> dict:
+               scene_extras: dict | None = None, textures=None) -> dict:
     """Write a GLB file and return a stats dictionary.
 
     ``parts`` is a list of :class:`~chibi.mesh.Mesh` objects; they are merged
     per material so the file holds one primitive per material.
     ``materials`` is the ordered list of :class:`Material` slots.
+    ``textures`` is an optional list of ``(name, png_path)`` pairs; the
+    images are embedded in the file and a material refers to one of them
+    through ``Material.base_color_texture``.
     """
     builder = _BufferBuilder()
     accessors: list = []
@@ -168,6 +178,20 @@ def export_glb(path, parts, materials, name="model", generator=None,
     for gi, gm in enumerate(grouped):
         nodes.append({"name": f"{name}_{gi:02d}", "mesh": gi})
 
+    images = []
+    samplers = []
+    texture_list = []
+    for (tname, tex_path) in (textures or []):
+        with open(tex_path, "rb") as handle:
+            blob = np.frombuffer(handle.read(), dtype=np.uint8)
+        view = builder.add(blob, _TARGET_ARRAY_BUFFER)
+        images.append({"name": tname, "mimeType": "image/png",
+                       "bufferView": view})
+        samplers.append({"magFilter": 9729, "minFilter": 9987,
+                         "wrapS": 33071, "wrapT": 33071})
+        texture_list.append({"sampler": len(samplers) - 1,
+                             "source": len(images) - 1})
+
     gltf = {
         "asset": {
             "version": "2.0",
@@ -182,6 +206,10 @@ def export_glb(path, parts, materials, name="model", generator=None,
         "bufferViews": builder.views,
         "buffers": [{"byteLength": len(builder.data)}],
     }
+    if texture_list:
+        gltf["images"] = images
+        gltf["samplers"] = samplers
+        gltf["textures"] = texture_list
     if scene_extras:
         gltf["extras"] = scene_extras
 

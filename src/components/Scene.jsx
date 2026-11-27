@@ -73,33 +73,89 @@ function ModelAsset({ vrmUrl, glbUrl, onStatus }) {
   return model ? <primitive object={model} /> : null;
 }
 
-function Stage({ vrmUrl, glbUrl, onStatus }) {
+// A charm is not a figurine on a plinth: it hangs from a cord.  The cord
+// is part of the scene, not the asset, so the piece reads as a keychain
+// the moment it is on screen.
+function CharmAsset({ glbUrl, onStatus }) {
+  const [model, setModel] = useState(null);
+  const [top, setTop] = useState(1.6);
+
+  useEffect(() => {
+    let cancelled = false;
+    onStatus('loading');
+    const loader = createLoader();
+
+    loader.load(
+      glbUrl,
+      (gltf) => {
+        if (cancelled) return;
+        const root = gltf.scene;
+        const box = new THREE.Box3().setFromObject(root);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const longestSide = Math.max(size.x, size.y, size.z) || 1;
+        root.position.sub(center);
+        const normalized = new THREE.Group();
+        // a charm is much taller than it is wide, so it is framed a
+        // little smaller than a standing character to keep the whole
+        // piece -- ring, head, dress -- inside the viewport
+        const scale = 2.5 / longestSide;
+        normalized.scale.setScalar(scale);
+        normalized.add(root);
+        setTop((size.y * scale) / 2);
+        setModel(normalized);
+        onStatus('ready');
+      },
+      undefined,
+      () => {
+        if (!cancelled) onStatus('error');
+      },
+    );
+
+    return () => {
+      cancelled = true;
+    };
+  }, [glbUrl, onStatus]);
+
+  return (
+    <group>
+      {model ? <primitive object={model} /> : null}
+      <mesh position={[0, top + 1.5, 0]}>
+        <cylinderGeometry args={[0.03, 0.03, 3.0, 12]} />
+        <meshStandardMaterial color="#26262c" roughness={0.9} />
+      </mesh>
+    </group>
+  );
+}
+
+function CharacterStage({ vrmUrl, glbUrl, onStatus }) {
   return (
     <>
-      <color attach="background" args={['#111210']} />
-      {/* MToon materials carry their own toon ramp; plain lights are enough.
-          No HDR environment fetch, so the viewer works fully offline. */}
       <ambientLight intensity={0.85} />
       <directionalLight position={[3, 6, 5]} intensity={1.7} />
       <directionalLight position={[-4, 2, -3]} intensity={0.6} color="#d6d9e8" />
       <ModelAsset vrmUrl={vrmUrl} glbUrl={glbUrl} onStatus={onStatus} />
       <ContactShadows position={[0, -1.65, 0]} opacity={0.32} scale={7} blur={2.5} far={4} />
-      <OrbitControls
-        makeDefault
-        enableDamping
-        dampingFactor={0.065}
-        minDistance={1.8}
-        maxDistance={9}
-        target={[0, 0, 0]}
-        rotateSpeed={0.8}
-      />
     </>
   );
 }
 
-export default function Scene({ vrmUrl, glbUrl, name }) {
+function CharmStage({ glbUrl, onStatus }) {
+  return (
+    <>
+      {/* a charm hangs in the light, so the key light is pushed to the side
+          and a rim light separates it from the background */}
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[3, 5, 4]} intensity={1.9} />
+      <directionalLight position={[-4, 2, -3]} intensity={0.8} color="#dfe6ff" />
+      <CharmAsset glbUrl={glbUrl} onStatus={onStatus} />
+    </>
+  );
+}
+
+export default function Scene({ vrmUrl, glbUrl, name, kind = 'character' }) {
   const [status, setStatus] = useState('loading');
-  const vrmFile = vrmUrl.split('/').pop();
+  const vrmFile = (vrmUrl ?? '').split('/').pop();
 
   return (
     <>
@@ -109,7 +165,21 @@ export default function Scene({ vrmUrl, glbUrl, name }) {
         camera={{ position: [0, 0.25, 5.2], fov: 34, near: 0.1, far: 100 }}
         gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       >
-        <Stage vrmUrl={vrmUrl} glbUrl={glbUrl} onStatus={setStatus} />
+        <color attach="background" args={['#111210']} />
+        {kind === 'charm' ? (
+          <CharmStage glbUrl={glbUrl} onStatus={setStatus} />
+        ) : (
+          <CharacterStage vrmUrl={vrmUrl} glbUrl={glbUrl} onStatus={setStatus} />
+        )}
+        <OrbitControls
+          makeDefault
+          enableDamping
+          dampingFactor={0.065}
+          minDistance={1.8}
+          maxDistance={9}
+          target={[0, 0, 0]}
+          rotateSpeed={0.8}
+        />
       </Canvas>
       {status === 'loading' && (
         <div className="model-status" role="status">

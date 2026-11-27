@@ -8,10 +8,12 @@ loaded as VRM with native MToon toon shading.**
 
 ## Release
 
-- Current version: 0.8.0
+- Current version: 0.9.0
 - Rendering: VRM (MToon toon materials, spring-bone hair physics) via `@pixiv/three-vrm`
 - Fallback: the procedural GLBs are loaded for any character whose VRM is not present yet
 - Missing models now show an explicit on-screen hint instead of a blank viewport
+- New **挂件** tab: the Kita Ikuyo chibi charm, traced out of the official
+  character sheet and given a thickness so it can be turned over
 
 ## Asset pipeline (VRM-first)
 
@@ -33,6 +35,29 @@ resolve both under `https://gsvegetable.github.io/jianmo/` and at a domain root.
 
 The viewer normalizes every model (auto-centering + scale), updates spring
 bones each frame, and needs no network access at runtime (no HDR/CDN fetches).
+
+## The chibi charm (挂件)
+
+The charm under `public/models/charms/` is **not modelled by hand**.  It is
+taken from the official *Bocchi the Rock!* character sheet: the drawing is
+cut into the colours it is made of, the colours are re-assembled at chibi
+proportions, and every one of them is given a thickness, so the charm is a
+layered acrylic piece that catches the light when it is turned.
+
+| Stage | What happens | Code |
+| --- | --- | --- |
+| Trace | the sheet is clustered into its flat colours and every colour is outlined | `tools/charm/segment.py` |
+| Compose | the head comes from the expression sheet, the body from the full body view, and the two are stacked at chibi proportions | `tools/charm/compose.py` |
+| Shape | the outlines are cut into triangles, with the holes in them bridged | `tools/charm/mesh2d.py` |
+| Model | every colour becomes a piece of the charm, standing forward by how far forward it is drawn | `tools/charm/charm3d.py` |
+
+```bash
+python3 tools/charm/build_charm.py --out build/charm
+```
+
+The script writes the drawing (`front.png`, `back.png`) and the model
+(`ikuyo-kita-charm.glb`).  The reference sheet is read from the environment
+variable `CHARM_SHEET`, and the cut out pieces are cached next to the build.
 
 ### Legacy procedural pipeline
 
