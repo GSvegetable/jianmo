@@ -33,7 +33,8 @@ button { font: inherit; }
 .brand-copy { display: grid; gap: 3px; }
 .brand-copy strong { font-size: 12px; letter-spacing: .19em; }
 .brand-copy small { color: var(--muted); font: 8px/1.2 var(--mono); letter-spacing: .08em; }
- .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #9fae83; box-shadow: 0 0 10px rgba(159,174,131,.6); }
+.header-note { justify-self: end; display: flex; align-items: center; gap: 8px; color: #8f9085; font: 9px var(--mono); letter-spacing: .1em; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #9fae83; box-shadow: 0 0 10px rgba(159,174,131,.6); }
 .viewport {
   position: relative; min-width: 0; min-height: 0; overflow: hidden; isolation: isolate;
   border: 1px solid rgba(235,231,218,.10);
@@ -51,7 +52,8 @@ button { font: inherit; }
 .viewport-caption p { margin: 0; color: #85867c; font: 8px var(--mono); letter-spacing: .1em; }
 .viewport-caption p i { display: inline-block; width: 3px; height: 3px; margin: 0 7px 2px; border-radius: 50%; background: var(--accent); }
 .viewport-index { position: absolute; z-index: 2; right: 20px; bottom: 17px; left: 20px; display: flex; justify-content: space-between; color: #77796f; font: 8px var(--mono); letter-spacing: .1em; pointer-events: none; }
-.hero-footer { display: flex; justify-content: space-between; align-items: center; min-height: 24px; color: #77796f; font: 8px var(--mono); letter-spacing: .14em; }\n.model-status { position: absolute; z-index: 3; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 13px; padding: 24px; color: rgba(238,234,226,.72); font-size: 12px; line-height: 1.8; text-align: center; pointer-events: none; }
+.hero-footer { display: flex; justify-content: space-between; align-items: center; min-height: 24px; color: #77796f; font: 8px var(--mono); letter-spacing: .14em; }
+.model-status { position: absolute; z-index: 3; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 13px; padding: 24px; color: rgba(238,234,226,.72); font-size: 12px; line-height: 1.8; text-align: center; pointer-events: none; }
 .model-status.error strong { color: var(--ink); font-size: 15px; }
 .model-status code { margin: 0 3px; padding: 2px 5px; border: 1px solid var(--line); color: var(--accent); font: 11px var(--mono); }
 .loading-orbit { width: 25px; height: 25px; border: 1px solid rgba(216,189,145,.22); border-top-color: var(--accent); border-radius: 50%; animation: orbit .85s linear infinite; }
