@@ -15,7 +15,7 @@ JIANMO is a browser-based 3D character viewer built with React Three Fiber and T
 
 The current Kita GLB is still a legacy procedural SDF model. It has a dense triangulated surface, but its silhouette, facial construction, hair design and clothing are not yet at the quality expected of a finished character sculpt. Increasing polygon count alone will not solve those shortcomings.
 
-The other three character GLBs and the acrylic-style charm are retained in the repository as legacy experiments, but removed from the active presentation while the hero asset is being rebuilt. They are not being represented as finished work.
+The other three character models, their catalog entries, and the acrylic-style charm are retained in the repository unchanged. They are simply not shown on the current single-character preview page; nothing has been deleted.
 
 ## Hero asset acceptance criteria
 
