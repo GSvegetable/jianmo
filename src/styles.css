@@ -90,3 +90,15 @@ button { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+.asset-state {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(226, 220, 207, .38);
+  font: 10px/1 Manrope, sans-serif;
+  letter-spacing: .2em;
+  white-space: nowrap;
+  pointer-events: none;
+}
