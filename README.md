@@ -1,6 +1,6 @@
 # JIANMO — Character Model Viewer
 
-[![Version](https://img.shields.io/badge/version-0.6.0-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
+[![Version](https://img.shields.io/badge/version-0.6.1-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
 
 **Online preview:** https://gsvegetable.github.io/jianmo/
 
@@ -8,13 +8,13 @@ A minimal real-time viewer for four standalone character models.
 
 ## Release
 
-- **Current version:** `0.6.0`
+- **Current version:** `0.6.1`
 - **Release stage:** GLB asset pipeline refactor
 - **Characters:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
 - **Rendering:** Three.js + React Three Fiber + GLB/glTF
 - **Controls:** Four character selectors; orbit and zoom in the viewport
 
-## Version 0.6.0 — Replace procedural character construction
+## Version 0.6.1 — GLB-first viewer refactor
 
 - Removed the procedural character-building system. Character bodies are no longer assembled from spheres, cones, tubes, and rounded boxes.
 - Reduced the public preview to one 3D viewport and four character-switch buttons.
