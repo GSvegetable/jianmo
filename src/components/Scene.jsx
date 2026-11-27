@@ -36,8 +36,10 @@ function ModelAsset({ url }) {
     const center = bounds.getCenter(new THREE.Vector3());
     const longestSide = Math.max(size.x, size.y, size.z) || 1;
     clone.position.sub(center);
-    clone.scale.setScalar(3.2 / longestSide);
-    return clone;
+    const normalized = new THREE.Group();
+    normalized.scale.setScalar(3.2 / longestSide);
+    normalized.add(clone);
+    return normalized;
   }, [scene]);
 
   return <primitive object={model} />;
