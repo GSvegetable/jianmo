@@ -7,9 +7,12 @@ import { catalog } from './data/catalog.js';
 const hero = catalog.find((item) => item.id === 'kita') ?? catalog[0];
 
 export default function App() {
+  const isEmbed = new URLSearchParams(window.location.search).get('embed') === '1';
+
   return (
-    <main className="viewer viewer--hero">
-      <header className="viewer-header">
+    <main className={`viewer viewer--hero${isEmbed ? ' viewer--embed' : ''}`}>
+
+      {!isEmbed && <header className="viewer-header">
         <a className="brand" href="./" aria-label="JIANMO 首页">
           <span className="brand-mark">J.</span>
           <span className="brand-copy">
@@ -18,7 +21,7 @@ export default function App() {
           </span>
         </a>
         <div className="header-note"><span className="status-dot" />HERO ASSET · 01</div>
-      </header>
+      </header>}
 
       <section className="viewport" aria-label={`${hero.name} 3D 模型`}>
         <div className="viewport-caption">
@@ -39,11 +42,11 @@ export default function App() {
         </div>
       </section>
 
-      <footer className="hero-footer">
+      {!isEmbed && <footer className="hero-footer">
         <span>IKUYO KITA</span>
         <span>ONE CHARACTER. BUILT PROPERLY.</span>
         <span>GLB / VRM READY</span>
-      </footer>
+      </footer>}
     </main>
   );
 }
