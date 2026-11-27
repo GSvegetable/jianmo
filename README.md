@@ -24,8 +24,8 @@ A minimal real-time viewer for four standalone character models.
 
 ## Model asset status
 
-The four character meshes now exist and are loaded from the paths already
-configured in `src/data/catalog.js`:
+The four character meshes now exist and are loaded from the paths configured
+in `src/data/catalog.js`:
 
 - `/models/characters/hitori-gotoh.glb`
 - `/models/characters/nijika-ijichi.glb`
@@ -34,6 +34,11 @@ configured in `src/data/catalog.js`:
 
 `public/models/characters/manifest.json` records the triangle count, vertex
 count, bounding box and build time of every model.
+
+The URLs are built from Vite's base path (`import.meta.env.BASE_URL`), so
+they resolve correctly both under `https://gsvegetable.github.io/jianmo/`
+and at a domain root. A literal `/models/...` would resolve against the
+domain root and 404 on GitHub Pages.
 
 ### How the models are made
 
