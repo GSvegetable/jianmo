@@ -1,6 +1,6 @@
 import { Component, Suspense, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows, Environment, Html, OrbitControls, useGLTF } from '@react-three/drei';
+import { ContactShadows, Environment, OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 
 class ModelErrorBoundary extends Component {
@@ -14,17 +14,9 @@ class ModelErrorBoundary extends Component {
   }
 
   render() {
-    if (this.state.failed) return <ModelStatus />;
+    if (this.state.failed) return null;
     return this.props.children;
   }
-}
-
-function ModelStatus() {
-  return (
-    <Html center>
-      <div className="asset-state">MODEL FILE COULD NOT BE LOADED</div>
-    </Html>
-  );
 }
 
 function ModelAsset({ url }) {
@@ -54,12 +46,10 @@ function Stage({ modelUrl }) {
       <directionalLight position={[-4, 2, -3]} intensity={1.1} color="#d6d9e8" />
       <Suspense fallback={null}>
         <Environment preset="studio" />
-        {modelUrl ? (
-          <ModelErrorBoundary key={modelUrl}>
-            <ModelAsset url={modelUrl} />
-          </ModelErrorBoundary>
-        ) : null}
-        {modelUrl ? <ContactShadows position={[0, -1.65, 0]} opacity={0.32} scale={7} blur={2.5} far={4} /> : null}
+        <ModelErrorBoundary key={modelUrl}>
+          <ModelAsset url={modelUrl} />
+        </ModelErrorBoundary>
+        <ContactShadows position={[0, -1.65, 0]} opacity={0.32} scale={7} blur={2.5} far={4} />
       </Suspense>
       <OrbitControls
         makeDefault

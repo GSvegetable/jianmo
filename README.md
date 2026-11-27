@@ -1,6 +1,6 @@
 # JIANMO — Character Model Viewer
 
-[![Version](https://img.shields.io/badge/version-0.6.1-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
+[![Version](https://img.shields.io/badge/version-0.6.2-c6a77b)](package.json) [![Deploy](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml/badge.svg)](https://github.com/GSvegetable/jianmo/actions/workflows/deploy.yml)
 
 **Online preview:** https://gsvegetable.github.io/jianmo/
 
@@ -8,13 +8,13 @@ A minimal real-time viewer for four standalone character models.
 
 ## Release
 
-- **Current version:** `0.6.1`
+- **Current version:** `0.6.2`
 - **Release stage:** GLB asset pipeline refactor
 - **Characters:** Hitori Gotoh, Nijika Ijichi, Ryo Yamada, and Ikuyo Kita
 - **Rendering:** Three.js + React Three Fiber + GLB/glTF
 - **Controls:** Four character selectors; orbit and zoom in the viewport
 
-## Version 0.6.1 — GLB-first viewer refactor
+## Version 0.6.2 — Direct GLB asset loading
 
 - Removed the procedural character-building system. Character bodies are no longer assembled from spheres, cones, tubes, and rounded boxes.
 - Reduced the public preview to one 3D viewport and four character-switch buttons.
@@ -24,14 +24,14 @@ A minimal real-time viewer for four standalone character models.
 
 ## Model asset status
 
-The viewer architecture is now ready for complete GLB assets, but the four final character meshes have **not** been created or imported yet. The current preview therefore shows an unobtrusive asset-in-production state rather than disguising the old procedural models as finished work.
+The viewer architecture is now ready for complete GLB assets, but the four final character meshes have **not** been created or imported yet. The four selector entries now point directly to their final GLB paths. Until those files are added, the viewport remains intentionally clean and empty; it does not display placeholder geometry or status copy.
 
 The intended production workflow is:
 1. Create each character as a complete, independently authored 3D mesh in Blender or another professional DCC tool.
 2. Refine silhouette, facial forms, hair volumes, clothing construction, hands, accessories, and instruments as real mesh work.
 3. Create clean topology, UVs, PBR materials, and a consistent neutral pose.
 4. Export optimized GLB files into `public/models/characters/`.
-5. Set each character's `modelUrl` in `src/data/catalog.js` to its corresponding asset path.
+5. Place each exported file at the matching path already configured in `src/data/catalog.js`; no additional UI or loader wiring is required.
 
 Expected asset paths:
 - `/models/characters/hitori-gotoh.glb`
@@ -39,7 +39,7 @@ Expected asset paths:
 - `/models/characters/ryo-yamada.glb`
 - `/models/characters/ikuyo-kita.glb`
 
-**Important:** This connected workspace currently does not expose a 3D mesh-generation capability. No generated mesh has been fabricated or represented as a finished model. The final character assets must be authored or generated through an available 3D production tool and then imported.
+**Important:** The viewer code is ready, but the four final character meshes have not yet been generated or imported. No placeholder has been represented as a finished model.
 
 ## Run locally
 
