@@ -31,11 +31,11 @@ function TubeLimb({ start, end, radius, color }) {
 }
 function Eye({ x, z, iris }) {
   return <group position={[x,1.55,z]}>
-    <Orb position={[0,0,0]} scale={[.105,.15,.045]} color="#fffaf2" roughness:.32}/>
-    <Orb position={[0,-.005,.035]} scale={[.066,.108,.026]} color={iris} roughness:.28}/>
-    <Orb position={[0,-.005,.057]} scale={[.031,.073,.014]} color="#25232a" roughness:.2}/>
-    <Orb position={[-.018,.045,.07]} scale={[.022,.027,.012]} color="#fff" roughness:.15}/>
-    <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness:.15}/>
+    <Orb position={[0,0,0]} scale={[.105,.15,.045]} color="#fffaf2" roughness=.32}/>
+    <Orb position={[0,-.005,.035]} scale={[.066,.108,.026]} color={iris} roughness=.28}/>
+    <Orb position={[0,-.005,.057]} scale={[.031,.073,.014]} color="#25232a" roughness=.2}/>
+    <Orb position={[-.018,.045,.07]} scale={[.022,.027,.012]} color="#fff" roughness=.15}/>
+    <Orb position={[.018,-.045,.069]} scale={[.009,.012,.008]} color="#fff" roughness=.15}/>
   </group>;
 }
 function Hair({ id, c }) {
@@ -90,27 +90,27 @@ function Face({ c }) {
     <Eye x={-.29} z={.77} iris={c.eyes}/><Eye x={.29} z={.77} iris={c.eyes}/>
     <Orb position={[0,1.22,.83]} scale={[.045,.025,.02]} color="#a96862"/>
     <Orb position={[0,1.12,.81]} scale={[.085,.025,.018]} color="#c77978"/>
-    <TubeLimb start={[-.42,1.72,.72]} end={[-.18,1.78,.76]} radius:.018 color={c.hairShade}/>
-    <TubeLimb start={[.18,1.78,.76]} end={[.42,1.72,.72]} radius:.018 color={c.hairShade}/>
+    <TubeLimb start={[-.42,1.72,.72]} end={[-.18,1.78,.76]} radius=.018 color={c.hairShade}/>
+    <TubeLimb start={[.18,1.78,.76]} end={[.42,1.72,.72]} radius=.018 color={c.hairShade}/>
   </group>;
 }
 function Guitar({ color, bass=false, position=[.45,.03,.64], rotation=[0,0,-.34] }) {
   const neckLength = bass ? 1.28 : 1.08;
   return <group position={position} rotation={rotation}>
     {/* sculpted double-cut body */}
-    <Orb position={[-.05,.02,0]} scale={[.29,.39,.105]} color={color} roughness:.34/>
-    <Orb position={[-.2,.12,.008]} scale={[.17,.2,.108]} color={color} roughness:.34}/>
-    <Orb position={[.11,.12,.008]} scale={[.17,.2,.108]} color={color} roughness:.34}/>
-    <SoftBox position={[-.04,.37,.02]} size={[.095,neckLength,.075]} color="#75543e" radius:.025/>
-    <SoftBox position={[-.04,.37,.064]} size={[.072,neckLength-.06,.012]} color="#2d2b2a" radius:.012/>
-    <SoftBox position={[-.04,.37+neckLength/2,.02]} size={[.19,.17,.08]} color="#d8d2c3" radius:.035/>
-    <SoftBox position={[-.05,-.02,.112]} size={[.25,.13,.022]} color="#ded6c5" radius:.018/>
-    <Orb position={[-.05,.07,.12]} scale={[.11,.1,.018]} color="#24272a" roughness:.35/>
+    <Orb position={[-.05,.02,0]} scale={[.29,.39,.105]} color={color} roughness=.34/>
+    <Orb position={[-.2,.12,.008]} scale={[.17,.2,.108]} color={color} roughness=.34}/>
+    <Orb position={[.11,.12,.008]} scale={[.17,.2,.108]} color={color} roughness=.34}/>
+    <SoftBox position={[-.04,.37,.02]} size={[.095,neckLength,.075]} color="#75543e" radius=.025/>
+    <SoftBox position={[-.04,.37,.064]} size={[.072,neckLength-.06,.012]} color="#2d2b2a" radius=.012/>
+    <SoftBox position={[-.04,.37+neckLength/2,.02]} size={[.19,.17,.08]} color="#d8d2c3" radius=.035/>
+    <SoftBox position={[-.05,-.02,.112]} size={[.25,.13,.022]} color="#ded6c5" radius=.018/>
+    <Orb position={[-.05,.07,.12]} scale={[.11,.1,.018]} color="#24272a" roughness=.35/>
     {Array.from({length:bass?4:6},(_,i)=><mesh key={i} position={[-.11+i*(.12/(bass?3:5)),.38,.09]}><boxGeometry args={[.006,neckLength+.28,.006]}/>{mat('#e8e1d2',.3,.65)}</mesh>)}
-    {Array.from({length:7},(_,i)=><SoftBox key={i} position={[-.04,.02+i*.115,.073]} size={[.09,.012,.012]} color="#b6aa93" radius:.003/>)}
-    {Array.from({length:bass?4:3},(_,i)=><Orb key={i} position={[-.16+i*.11,-.08,.12]} scale={[.018,.025,.014]} color="#c9c5b9" roughness:.25}/>)}
-    <SoftBox position={[-.04,.37+neckLength/2,.065]} size={[.2,.045,.025]} color="#c8c2b5" radius:.01/>
-    {[-1,1].map((side)=><group key={side}>{[0,1,2].map(i=><Orb key={i} position={[-.04+side*(.13),.37+neckLength/2-.05+i*.07,.015]} scale={[.055,.025,.025]} color="#bcb8ae" roughness:.3/>)}</group>)}
+    {Array.from({length:7},(_,i)=><SoftBox key={i} position={[-.04,.02+i*.115,.073]} size={[.09,.012,.012]} color="#b6aa93" radius=.003/>)}
+    {Array.from({length:bass?4:3},(_,i)=><Orb key={i} position={[-.16+i*.11,-.08,.12]} scale={[.018,.025,.014]} color="#c9c5b9" roughness=.25}/>)}
+    <SoftBox position={[-.04,.37+neckLength/2,.065]} size={[.2,.045,.025]} color="#c8c2b5" radius=.01/>
+    {[-1,1].map((side)=><group key={side}>{[0,1,2].map(i=><Orb key={i} position={[-.04+side*(.13),.37+neckLength/2-.05+i*.07,.015]} scale={[.055,.025,.025]} color="#bcb8ae" roughness=.3/>)}</group>)}
   </group>;
 }
 function DrumKit() {
@@ -122,11 +122,11 @@ function DrumKit() {
     <mesh position={[.45,.48,-.12]} rotation={[Math.PI/2,0,0]} castShadow><cylinderGeometry args={[.22,.22,.2,32]}/>{mat('#d9c7a8',.35)}</mesh>
     <mesh position={[-.78,.18,-.06]} rotation={[Math.PI/2,0,0]} castShadow><cylinderGeometry args={[.27,.27,.12,32]}/>{mat('#b8a58c',.35)}</mesh>
     {[-.82,.78].map((x,i)=><group key={i} position={[x,.85,-.08]}>
-      <TubeLimb start={[0,-.75,0]} end={[0,.06,0]} radius:.018 color="#a6a39a"/>
+      <TubeLimb start={[0,-.75,0]} end={[0,.06,0]} radius=.018 color="#a6a39a"/>
       <mesh position={[0,.12,0]} castShadow><cylinderGeometry args={[.27,.22,.035,32]}/>{mat('#c7b994',.27,.55)}</mesh>
     </group>)}
-    <TubeLimb start={[-.5,.65,.42]} end={[-.12,.95,.42]} radius:.018 color="#e6d3b3"/>
-    <TubeLimb start={[.5,.65,.42]} end={[.12,.95,.42]} radius:.018 color="#e6d3b3"/>
+    <TubeLimb start={[-.5,.65,.42]} end={[-.12,.95,.42]} radius=.018 color="#e6d3b3"/>
+    <TubeLimb start={[.5,.65,.42]} end={[.12,.95,.42]} radius=.018 color="#e6d3b3"/>
   </group>;
 }
 function Character({ characterId }) {
@@ -141,22 +141,22 @@ function Character({ characterId }) {
       <Face c={c}/>
       {/* collar, jacket and torso */}
       <Orb position={[0,.47,-.02]} scale={[.43,.56,.34]} color={c.jacket}/>
-      <SoftBox position={[0,.63,.29]} size={[.3,.36,.08]} color={c.shirt} radius:.035/>
-      <SoftBox position={[0,.48,.35]} size={[.07,.35,.035]} color={c.tie} radius:.012/>
+      <SoftBox position={[0,.63,.29]} size={[.3,.36,.08]} color={c.shirt} radius=.035/>
+      <SoftBox position={[0,.48,.35]} size={[.07,.35,.035]} color={c.tie} radius=.012/>
       <Orb position={[-.2,.77,.3]} scale={[.12,.12,.06]} color={c.shirt}/>
       <Orb position={[.2,.77,.3]} scale={[.12,.12,.06]} color={c.shirt}/>
       <Orb position={[0,.03,-.01]} scale={[.48,.2,.34]} color={c.skirt}/>
-      {Array.from({length:8},(_,i)=><SoftBox key={i} position={[Math.sin(i*Math.PI/4)*.34,-.04,Math.cos(i*Math.PI/4)*.22]} size={[.14,.23,.045]} color={i%2?c.skirt:c.jacket} radius:.018 rotation={[0,-i*Math.PI/4,0]}/>)}
+      {Array.from({length:8},(_,i)=><SoftBox key={i} position={[Math.sin(i*Math.PI/4)*.34,-.04,Math.cos(i*Math.PI/4)*.22]} size={[.14,.23,.045]} color={i%2?c.skirt:c.jacket} radius=.018 rotation={[0,-i*Math.PI/4,0]}/>)}
       {/* sleeves, arms and tiny hands */}
-      <TubeLimb start={[-.35,.68,.02]} end={[-.55,.22,.4]} radius:.115 color={c.jacket}/>
-      <TubeLimb start={[.35,.68,.02]} end={[.55,.22,.4]} radius:.115 color={c.jacket}/>
+      <TubeLimb start={[-.35,.68,.02]} end={[-.55,.22,.4]} radius=.115 color={c.jacket}/>
+      <TubeLimb start={[.35,.68,.02]} end={[.55,.22,.4]} radius=.115 color={c.jacket}/>
       <Orb position={[-.55,.2,.42]} scale={[.12,.11,.1]} color={c.skin}/>
       <Orb position={[.55,.2,.42]} scale={[.12,.11,.1]} color={c.skin}/>
       {/* legs, socks and shoes */}
-      <TubeLimb start={[-.23,-.1,0]} end={[-.25,-.75,.04]} radius:.105 color={c.skin}/>
-      <TubeLimb start={[.23,-.1,0]} end={[.25,-.75,.04]} radius:.105 color={c.skin}/>
-      <TubeLimb start={[-.25,-.65,.03]} end={[-.25,-.88,.03]} radius:.11 color={c.socks}/>
-      <TubeLimb start={[.25,-.65,.03]} end={[.25,-.88,.03]} radius:.11 color={c.socks}/>
+      <TubeLimb start={[-.23,-.1,0]} end={[-.25,-.75,.04]} radius=.105 color={c.skin}/>
+      <TubeLimb start={[.23,-.1,0]} end={[.25,-.75,.04]} radius=.105 color={c.skin}/>
+      <TubeLimb start={[-.25,-.65,.03]} end={[-.25,-.88,.03]} radius=.11 color={c.socks}/>
+      <TubeLimb start={[.25,-.65,.03]} end={[.25,-.88,.03]} radius=.11 color={c.socks}/>
       <Orb position={[-.25,-.93,.13]} scale={[.2,.11,.29]} color={c.shoes}/>
       <Orb position={[.25,-.93,.13]} scale={[.2,.11,.29]} color={c.shoes}/>
       {isDrummer ? <DrumKit/> : <Guitar color={c.instrument} bass={id==='ryo'} position={id==='ryo'?[.48,.02,.58]:[.47,.02,.6]}/>}
@@ -183,7 +183,7 @@ function Stage({ mode, modelUrl, characterId }) {
   </>;
 }
 export default function Scene({ mode, modelUrl, characterId }) {
-  return <Canvas shadows dpr={[1,1.7]} camera={{position:[0,.55,5.4],fov:38,near:.1,far:50}} gl={{antialias:true,alpha:false,powerPreference:'high-performance'}}>
+  return <Canvas shadows dpr={[1,1.7]} camera={{position=[0,.55,5.4],fov:38,near:.1,far:50}} gl={{antialias:true,alpha:false,powerPreference:'high-performance'}}>
     <Stage mode={mode} modelUrl={modelUrl} characterId={characterId}/>
   </Canvas>;
 }
