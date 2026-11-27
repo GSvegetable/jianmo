@@ -23,7 +23,76 @@
         ]
       },
       "height": 1.8606,
-      "seconds": 55.6
+      "seconds": 55.86
+    },
+    {
+      "id": "nijika",
+      "name": "伊地知虹夏",
+      "file": "nijika-ijichi.glb",
+      "bytes": 10037660,
+      "triangles": 355636,
+      "vertices": 179690,
+      "materials": 22,
+      "bounds": {
+        "min": [
+          -0.3415,
+          -0.0018,
+          -0.3215
+        ],
+        "max": [
+          0.3415,
+          1.7573,
+          0.338
+        ]
+      },
+      "height": 1.7591,
+      "seconds": 54.51
+    },
+    {
+      "id": "ryo",
+      "name": "山田凉",
+      "file": "ryo-yamada.glb",
+      "bytes": 9926576,
+      "triangles": 351968,
+      "vertices": 177708,
+      "materials": 22,
+      "bounds": {
+        "min": [
+          -0.3598,
+          -0.0018,
+          -0.3062
+        ],
+        "max": [
+          0.3598,
+          1.7594,
+          0.2825
+        ]
+      },
+      "height": 1.7612,
+      "seconds": 54.32
+    },
+    {
+      "id": "kita",
+      "name": "喜多郁代",
+      "file": "ikuyo-kita.glb",
+      "bytes": 9995400,
+      "triangles": 354360,
+      "vertices": 178931,
+      "materials": 22,
+      "bounds": {
+        "min": [
+          -0.338,
+          -0.0018,
+          -0.3361
+        ],
+        "max": [
+          0.338,
+          1.7578,
+          0.2752
+        ]
+      },
+      "height": 1.7596,
+      "seconds": 54.96
     }
   ]
 }

@@ -491,8 +491,8 @@ def build_side_locks(spec: CharacterSpec) -> list:
         ctrl = root + (tip - root) * 0.5 + np.array([side * 0.024, 0.0, 0.016])
         t = np.linspace(0.0, 1.0, 12)
         path = _quad_bezier(root, ctrl, tip, t)
-        width = np.linspace(0.046, 0.011, 12)
-        parts.append(blade(path, width, thickness=0.017, mat=MAT["hair"], name="side_lock"))
+        width = np.linspace(0.032, 0.009, 12)
+        parts.append(blade(path, width, thickness=0.012, mat=MAT["hair"], name="side_lock"))
     return parts
 
 
@@ -502,20 +502,24 @@ def build_twin_tails(spec: CharacterSpec) -> list:
         return []
     parts = []
     for side in (-1, 1):
-        anchor = np.array([side * (HEAD_RX * 0.90),
-                           HEAD_CY + spec.twin_tail_height,
-                           -0.050])
+        # The anchor has to sit on the cap's surface *at that height*, not at
+        # a fixed radius: a ponytail tied low would otherwise start floating
+        # away from the head, and one tied high would sink into it.
+        y = HEAD_CY + spec.twin_tail_height
+        t = (y - HEAD_CY) / HEAD_RY
+        cap = HEAD_RX * spec.hair_volume * math.sqrt(max(0.0, 1.0 - t * t))
+        anchor = np.array([side * (cap + 0.014), y, -0.040])
         tip = anchor + np.array([side * spec.twin_tail_spread,
                                  -spec.twin_tail_length, -0.030])
-        ctrl = anchor + np.array([side * (spec.twin_tail_spread + 0.020),
-                                  -spec.twin_tail_length * 0.45, 0.022])
+        ctrl = anchor + np.array([side * (spec.twin_tail_spread + 0.018),
+                                  -spec.twin_tail_length * 0.45, -0.030])
         t = np.linspace(0.0, 1.0, 14)
         path = _quad_bezier(anchor, ctrl, tip, t)
         width = np.linspace(0.068, 0.018, 14)
         parts.append(blade(path, width, thickness=0.029, mat=MAT["hair"], name="tail"))
 
-        tie = torus(0.038, 0.013, 26, 12, MAT["hair_tip"], "tie")
-        parts.append(tie.rotated("y", 90).rotated("x", 24).translated(anchor))
+        tie = torus(0.040, 0.014, 26, 12, MAT["hair_tip"], "tie")
+        parts.append(tie.rotated("x", 16).translated(anchor))
     return parts
 
 
@@ -695,7 +699,9 @@ def build_sticks(spec: CharacterSpec, center, tilt: float = 14.0) -> list:
     """A single drumstick whose butt sits at ``center``."""
     stick = tube([(0, 0, 0), (0.016, 0.100, 0.008)], [0.006, 0.010], 10,
                  MAT["stick"], "stick")
-    return [stick.translated(center).rotated("x", tilt)]
+    # rotate first, then translate: the other order spins the stick around
+    # the world origin and throws it off the drum
+    return [stick.rotated("x", tilt).translated(center)]
 
 
 # --------------------------------------------------------------------------
